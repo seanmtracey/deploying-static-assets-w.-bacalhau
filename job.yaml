@@ -1,0 +1,24 @@
+Name: Deploy HTML
+Type: ops
+Count: 1
+Tasks:
+  - Name: Deploy HTML
+    InputSources:
+      - Source:
+          Type: localDirectory
+          Params:
+            SourcePath: /var/www/html
+            ReadWrite: true
+        Target: /var/www/html
+    Publisher:
+      Type: local
+    Engine:
+      Type: docker
+      Params:
+        Image: docker.io/bacalhauproject/python-runner:2024.08.16.1116
+        EnvironmentVariables:
+          - COMMAND={{.fulltext}}
+          - B64_ENCODED=True
+          - DEBUG=True
+
+
